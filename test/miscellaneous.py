@@ -15,7 +15,7 @@ import PISM.testing
 import sys
 import os
 import numpy as np
-from unittest import TestCase
+from unittest import TestCase, SkipTest
 
 ctx = PISM.Context()
 ctx.log.set_threshold(0)
@@ -1222,6 +1222,7 @@ class ForcingOptions(TestCase):
 
 def test_bq2():
     "2-point boundary quadrature"
+    raise SkipTest("not implemented")
     dx = 1.0
     dy = dx
     Q = PISM.BoundaryQuadrature2(1, 1, 1)
