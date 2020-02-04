@@ -1,4 +1,4 @@
-/* Copyright (C) 2017, 2018 PISM Authors
+/* Copyright (C) 2017, 2018, 2020 PISM Authors
  *
  * This file is part of PISM.
  *
@@ -21,6 +21,8 @@
 
 #include "StressBalance.hh"
 #include "ShallowStressBalance.hh"
+#include "ssa/SSAFD.hh"
+#include "ssa/SSAFEM.hh"
 #include "WeertmanSliding.hh"
 #include "SSB_Modifier.hh"
 #include "pism/regional/SSAFD_Regional.hh"
@@ -36,6 +38,8 @@ std::shared_ptr<StressBalance> create(const std::string &model,
                                       bool regional) {
   ShallowStressBalance *sliding = NULL;
 
+  auto config = grid->ctx()->config();
+
   if (member(model, {"none", "sia"})) {
     sliding = new ZeroSliding(grid);
   } else if (member(model, {"prescribed_sliding", "prescribed_sliding+sia"})) {
@@ -46,7 +50,11 @@ std::shared_ptr<StressBalance> create(const std::string &model,
     if (regional) {
       sliding = new SSAFD_Regional(grid);
     } else {
-      sliding = new SSAFD(grid);
+      if (config->get_string("stress_balance.ssa.method") == "fem") {
+        sliding = new SSAFEM(grid);
+      } else {
+        sliding = new SSAFD(grid);
+      }
     }
   } else {
     throw RuntimeError::formatted(PISM_ERROR_LOCATION,
