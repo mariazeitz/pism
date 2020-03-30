@@ -1,4 +1,4 @@
-// Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017  David Maxwell
+// Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2020  David Maxwell
 //
 // This file is part of PISM.
 //
@@ -70,7 +70,7 @@ protected:
   IceGrid::ConstPtr m_grid;
 
   fem::ElementIterator m_element_index;
-  fem::Q1Element       m_element;
+  fem::Q1Element2       m_element;
 
 private:
   // Hide copy/assignment operations

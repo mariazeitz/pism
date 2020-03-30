@@ -183,7 +183,7 @@ protected:
   IceModelVec2S  m_hardav;
 
   fem::ElementIterator m_element_index;
-  fem::Q1Element       m_element;
+  fem::Q1Element2       m_element;
 
   petsc::KSP  m_ksp;                                ///< KSP used in \ref apply_linearization and \ref apply_linearization_transpose  
   petsc::Mat  m_J_state;                            ///< Mat used in \ref apply_linearization and \ref apply_linearization_transpose
