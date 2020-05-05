@@ -36,24 +36,24 @@ namespace stressbalance {
 std::shared_ptr<StressBalance> create(const std::string &model,
                                       IceGrid::ConstPtr grid,
                                       bool regional) {
-  ShallowStressBalance *sliding = NULL;
+  std::shared_ptr<ShallowStressBalance> sliding;
 
   auto config = grid->ctx()->config();
 
   if (member(model, {"none", "sia"})) {
-    sliding = new ZeroSliding(grid);
+    sliding.reset(new ZeroSliding(grid));
   } else if (member(model, {"prescribed_sliding", "prescribed_sliding+sia"})) {
-    sliding = new PrescribedSliding(grid);
+    sliding.reset(new PrescribedSliding(grid));
   } else if (member(model, {"weertman_sliding", "weertman_sliding+sia"})) {
-    sliding = new WeertmanSliding(grid);
+    sliding.reset(new WeertmanSliding(grid));
   } else if (member(model, {"ssa", "ssa+sia"})) {
     if (regional) {
-      sliding = new SSAFD_Regional(grid);
+      sliding.reset(new SSAFD_Regional(grid));
     } else {
       if (config->get_string("stress_balance.ssa.method") == "fem") {
-        sliding = new SSAFEM(grid);
+        sliding.reset(new SSAFEM(grid));
       } else {
-        sliding = new SSAFD(grid);
+        sliding.reset(new SSAFD(grid));
       }
     }
   } else {
@@ -61,15 +61,15 @@ std::shared_ptr<StressBalance> create(const std::string &model,
                                   "invalid stress balance model: %s", model.c_str());
   }
 
-  SSB_Modifier *modifier = NULL;
+  std::shared_ptr<SSB_Modifier> modifier;
 
   if (member(model, {"none", "ssa", "prescribed_sliding", "weertman_sliding"})) {
-    modifier = new ConstantInColumn(grid);
+    modifier.reset(new ConstantInColumn(grid));
   } else if (member(model, {"prescribed_sliding+sia", "weertman_sliding+sia", "ssa+sia", "sia"})) {
     if (regional) {
-      modifier = new SIAFD_Regional(grid);
+      modifier.reset(new SIAFD_Regional(grid));
     } else {
-      modifier = new SIAFD(grid);
+      modifier.reset(new SIAFD(grid));
     }
   } else {
     throw RuntimeError::formatted(PISM_ERROR_LOCATION,
