@@ -1,4 +1,4 @@
-// Copyright (C) 2009--2019 Ed Bueler and Constantine Khroulev
+// Copyright (C) 2009--2020 Ed Bueler and Constantine Khroulev
 //
 // This file is part of PISM.
 //
@@ -624,7 +624,7 @@ void IceModel::allocate_basal_yield_stress() {
   std::string model = m_config->get_string("stress_balance.model");
 
   // only these two use the yield stress (so far):
-  if (model == "ssa" || model == "ssa+sia") {
+  if (member(model, {"ssa", "ssa+sia", "blatter"})) {
     std::string yield_stress_model = m_config->get_string("basal_yield_stress.model");
 
     if (yield_stress_model == "constant") {
