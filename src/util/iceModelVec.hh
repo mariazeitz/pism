@@ -587,13 +587,13 @@ public:
   void sumColumns(IceModelVec2S &output, double A, double B) const;
 };
 
-/** 
+/**
  * Convert a PETSc Vec from the units in `from` into units in `to` (in place).
  *
  * @param v data to convert
  * @param system unit system
  * @param spec1 source unit specification string
- * @param spec2 destination unit specification string 
+ * @param spec2 destination unit specification string
  */
 void convert_vec(petsc::Vec &v, std::shared_ptr<units::System> system,
                  const std::string &spec1, const std::string &spec2);
@@ -630,4 +630,3 @@ void staggered_to_regular(const IceModelVec2CellType &cell_type,
 #include "IceModelVec_inline.hh"
 
 #endif /* __IceModelVec_hh */
-
