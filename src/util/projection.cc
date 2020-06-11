@@ -346,7 +346,7 @@ static void compute_lon_lat(const std::string &projection,
 
 static void compute_lon_lat_bounds(const std::string &projection,
                                    LonLat which,
-                                   IceModelVec3D &result) {
+                                   IceModelVec3 &result) {
 
   Proj crs(projection, "EPSG:4326");
 
@@ -422,11 +422,11 @@ void compute_latitude(const std::string &projection, IceModelVec2S &result) {
   compute_lon_lat(projection, LATITUDE, result);
 }
 
-void compute_lon_bounds(const std::string &projection, IceModelVec3D &result) {
+void compute_lon_bounds(const std::string &projection, IceModelVec3 &result) {
   compute_lon_lat_bounds(projection, LONGITUDE, result);
 }
 
-void compute_lat_bounds(const std::string &projection, IceModelVec3D &result) {
+void compute_lat_bounds(const std::string &projection, IceModelVec3 &result) {
   compute_lon_lat_bounds(projection, LATITUDE, result);
 }
 

@@ -1,4 +1,4 @@
-// Copyright (C) 2010--2019 PISM Authors
+// Copyright (C) 2010--2020 PISM Authors
 //
 // This file is part of PISM.
 //
@@ -30,6 +30,7 @@
 #include "iceModelVec.hh"
 #include "pism/util/error_handling.hh"
 #include "pism/util/io/File.hh"
+#include "pism/util/IceModelVec2V.hh"
 #include "pism/util/io/io_helpers.hh"
 
 namespace pism {
