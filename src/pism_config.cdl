@@ -30,7 +30,7 @@ netcdf pism_config {
     pism_config:atmosphere.anomaly.reference_year_units = "years";
 
     pism_config:atmosphere.delta_P.file = "";
-    pism_config:atmosphere.delta_P.file_doc = "Name of the file containing scalar precipitation offsets.";
+    pism_config:atmosphere.delta_P.file_doc = "Name of the file containing number precipitation offsets.";
     pism_config:atmosphere.delta_P.file_option = "atmosphere_delta_P_file";
     pism_config:atmosphere.delta_P.file_type = "string";
 
@@ -144,7 +144,7 @@ netcdf pism_config {
     pism_config:atmosphere.fausto_air_temp.summer_peak_day_units = "ordinal day number";
 
     pism_config:atmosphere.frac_P.file = "";
-    pism_config:atmosphere.frac_P.file_doc = "Name of the file containing scalar precipitation scaling.";
+    pism_config:atmosphere.frac_P.file_doc = "Name of the file containing number precipitation scaling.";
     pism_config:atmosphere.frac_P.file_option = "atmosphere_frac_P_file";
     pism_config:atmosphere.frac_P.file_type = "string";
 
@@ -183,7 +183,7 @@ netcdf pism_config {
     pism_config:atmosphere.models_type = "string";
 
     pism_config:atmosphere.one_station.file = "";
-    pism_config:atmosphere.one_station.file_doc = "Specifies a file containing scalar time-series 'precipitation' and 'air_temp'.";
+    pism_config:atmosphere.one_station.file_doc = "Specifies a file containing number time-series 'precipitation' and 'air_temp'.";
     pism_config:atmosphere.one_station.file_option = "atmosphere_one_station_file";
     pism_config:atmosphere.one_station.file_type = "string";
 
@@ -1825,7 +1825,7 @@ netcdf pism_config {
     pism_config:output.ISMIP6_extra_variables_type = "string";
 
     pism_config:output.ISMIP6_ts_variables = "lim,limnsw,iareagr,iareafl,tendacabf,tendlibmassbf,tendlibmassbffl,tendlicalvf,tendlifmassbf";
-    pism_config:output.ISMIP6_ts_variables_doc = "Comma-separated list of scalar variables (time series) reported by models participating in ISMIP6 simulations.";
+    pism_config:output.ISMIP6_ts_variables_doc = "Comma-separated list of number variables (time series) reported by models participating in ISMIP6 simulations.";
     pism_config:output.ISMIP6_ts_variables_type = "string";
 
     pism_config:output.backup_interval = 1.0;
@@ -1977,17 +1977,17 @@ netcdf pism_config {
     pism_config:output.snapshot.times_type = "string";
 
     pism_config:output.timeseries.append = "false";
-    pism_config:output.timeseries.append_doc = "If true, append to the scalar time series output file.";
+    pism_config:output.timeseries.append_doc = "If true, append to the number time series output file.";
     pism_config:output.timeseries.append_option = "ts_append";
     pism_config:output.timeseries.append_type = "flag";
 
     pism_config:output.timeseries.buffer_size = 10000;
-    pism_config:output.timeseries.buffer_size_doc = "Number of scalar diagnostic time-series records to hold in memory before writing to disk. (PISM writes this many time-series records to reduce I/O costs.) Send the USR2 signal to flush time-series.";
+    pism_config:output.timeseries.buffer_size_doc = "Number of number diagnostic time-series records to hold in memory before writing to disk. (PISM writes this many time-series records to reduce I/O costs.) Send the USR2 signal to flush time-series.";
     pism_config:output.timeseries.buffer_size_type = "integer";
     pism_config:output.timeseries.buffer_size_units = "count";
 
     pism_config:output.timeseries.filename = "";
-    pism_config:output.timeseries.filename_doc = "Name of the file to save scalar time series to. Leave empty to disable reporting scalar time-series.";
+    pism_config:output.timeseries.filename_doc = "Name of the file to save number time series to. Leave empty to disable reporting number time-series.";
     pism_config:output.timeseries.filename_option = "ts_file";
     pism_config:output.timeseries.filename_type = "string";
 
@@ -1997,7 +1997,7 @@ netcdf pism_config {
     pism_config:output.timeseries.times_type = "string";
 
     pism_config:output.timeseries.variables = "";
-    pism_config:output.timeseries.variables_doc = "Requested scalar (time-series) diagnostics. Leave empty to save all available diagnostics.";
+    pism_config:output.timeseries.variables_doc = "Requested number (time-series) diagnostics. Leave empty to save all available diagnostics.";
     pism_config:output.timeseries.variables_option = "ts_vars";
     pism_config:output.timeseries.variables_type = "string";
 
@@ -2392,6 +2392,89 @@ netcdf pism_config {
     pism_config:surface.ismip6.reference_year_doc = "Reference year to use when ``surface.ismip6.period`` is active.";
     pism_config:surface.ismip6.reference_year_type = "integer";
     pism_config:surface.ismip6.reference_year_units = "years";
+
+    pism_config:surface.itm.air_temp_all_refreeze = 268.65;
+    pism_config:surface.itm.air_temp_all_refreeze_doc = "threshold temperature below which all meltwater refreezes to ice";
+    pism_config:surface.itm.air_temp_all_refreeze_type = "number";
+    pism_config:surface.itm.air_temp_all_refreeze_units = "Kelvin";
+
+    pism_config:surface.itm.air_temp_no_refreeze = 278;
+    pism_config:surface.itm.air_temp_no_refreeze_doc = "threshold temperature above which no meltwater refreezes to ice";
+    pism_config:surface.itm.air_temp_no_refreeze_type = "number";
+    pism_config:surface.itm.air_temp_no_refreeze_units = "Kelvin";
+
+    pism_config:surface.itm.anomaly = "no";
+    pism_config:surface.itm.anomaly_doc = "if yes, bare ice albedo is applied everywhere between start day and end day with a frequency on frequency years, set frequeqncy larger simulation time in order to apply albedo forcing only once";
+    pism_config:surface.itm.anomaly_type = "flag";
+
+    pism_config:surface.itm.anomaly_start_day = 152;
+    pism_config:surface.itm.anomaly_start_day_doc = "day of the year when albedo forcing starts if surface.itm.anomaly = yes, 152 is 1st of June";
+    pism_config:surface.itm.anomaly_start_day_type = "integer";
+    pism_config:surface.itm.anomaly_start_day_units = "ordinal day number";
+
+    pism_config:surface.itm.anomaly_end_day = 253;
+    pism_config:surface.itm.anomaly_end_day_doc = "day of the year when albedo forcing ends if surface.itm.anomaly = yes, 253 is 31st of August";
+    pism_config:surface.itm.anomaly_end_day_type = "integer";
+    pism_config:surface.itm.anomaly_end_day_units = "ordinal day number";
+
+    pism_config:surface.itm.anomaly_frequency = 1;
+    pism_config:surface.itm.anomaly_frequency_doc = "albedo forcing is applied every frequency years";
+    pism_config:surface.itm.anomaly_frequency_type = "integer";
+    pism_config:surface.itm.anomaly_frequency_units = "yr-1";
+
+    pism_config:surface.itm.background_melting = "yes";
+    pism_config:surface.itm.background_melting_doc = "if yes, that we use pdd positive temperatures instead of just air temperatures in the itm equation";
+    pism_config:surface.itm.background_melting_type = "flag";
+
+    pism_config:surface.itm.background_melting_temp = 266.65;
+    pism_config:surface.itm.background_melting_temp_doc = "threshold temperature below which no melting occurs";
+    pism_config:surface.itm.background_melting_temp_type = "number";
+    pism_config:surface.itm.background_melting_temp_units = "Kelvin";
+
+    pism_config:surface.itm.daily_cycle = "yes";
+    pism_config:surface.itm.daily_cycle_doc = "if set to yes, the insolation melt module takes the diurnal cycle into account (see Krebs-Kanzow 2018)";
+    pism_config:surface.itm.daily_cycle_type = "flag";
+
+    pism_config:surface.itm.max_evals_per_year = 52;
+    pism_config:surface.itm.max_evals_per_year_doc = "maximum number of times the ITM scheme will ask for air temperature and precipitation to build location-dependent time series for computing melt and snow accumulation; the default means the ITM uses weekly samples of the annual cycle; see also surface.pdd.std_dev";
+    pism_config:surface.itm.max_evals_per_year_type = "integer";
+    pism_config:surface.itm.max_evals_per_year_units = "count";
+
+    pism_config:surface.itm.itm_c = -35.0;
+    pism_config:surface.itm.itm_c_doc = "factor in melt calculation";
+    pism_config:surface.itm.itm_c_type = "number";
+    pism_config:surface.itm.itm_c_units = "W m-2";
+
+    pism_config:surface.itm.itm_lambda = 10.0;
+    pism_config:surface.itm.itm_lambda_doc = "factor in melt calculation";
+    pism_config:surface.itm.itm_lambda_type = "number";
+    pism_config:surface.itm.itm_lambda_units = "W m-2 K-1";
+
+    pism_config:surface.itm.melt_conversion_factor = 1.;
+    pism_config:surface.itm.melt_conversion_factor_doc = "conversion factor between melt of snow and ice in itm scheme";
+    pism_config:surface.itm.melt_conversion_factor_type = "number";
+    pism_config:surface.itm.melt_conversion_factor_units = "1";
+
+    pism_config:surface.itm.method = "daily";
+    pism_config:surface.itm.method_choices = "daily,not_daily,albedo_forcing";
+    pism_config:surface.itm.method_doc = "itm implementation method";
+    pism_config:surface.itm.method_option = "itm_method";
+    pism_config:surface.itm.method_type = "keyword";
+
+    pism_config:surface.itm.refreeze = 0.6;
+    pism_config:surface.itm.refreeze_doc = "EISMINT-Greenland value :cite:`RitzEISMINT`";
+    pism_config:surface.itm.refreeze_type = "number";
+    pism_config:surface.itm.refreeze_units = "1";
+
+    pism_config:surface.itm.snow_depth_crit = 0.02;
+    pism_config:surface.itm.snow_depth_crit_doc = "scale of snow depth for albedo calculation, see Krapp et al. 2017, Table 3 (2.8 cm was just too arbitrary, so 3.5 cm is the center of the interval consistent with optimal solutions (see 3.4 parameter sensitivity)";
+    pism_config:surface.itm.snow_depth_crit_type = "number";
+    pism_config:surface.itm.snow_depth_crit_units = "m";
+
+    pism_config:surface.itm.solar_constant = 1367.;
+    pism_config:surface.itm.solar_constant_doc = "constant for solar radiation";
+    pism_config:surface.itm.solar_constant_type = "number";
+    pism_config:surface.itm.solar_constant_units = "W m-2";
 
     pism_config:surface.models = "given";
     pism_config:surface.models_doc = "Comma-separated list of surface models and modifiers.";
